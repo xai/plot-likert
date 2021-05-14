@@ -56,7 +56,8 @@ def plot_counts(
     compute_percentages: bool = False,
     bar_labels: bool = False,
     bar_labels_color: str = "white",
-    **kwargs,
+    kwargs_for_pandas = {},
+    kwargs_for_legend = {},
 ) -> matplotlib.axes.Axes:
     """
     Plot the given counts of Likert responses.
@@ -85,8 +86,10 @@ def plot_counts(
         Show a label with the value of each bar segment on top of it
     bar_labels_color: str, default = "white"
         If showing bar labels, use this color for the text
-    **kwargs
+    kwargs_for_pandas
         Options to pass to pandas plotting method.
+    kwargs_for_legend
+        Options to pass to legend plotting method.
 
     Returns
     -------
@@ -135,7 +138,7 @@ def plot_counts(
 
     # Start putting together the plot
     axes = reversed_rows.plot.barh(
-        stacked=True, color=colors, figsize=figsize, **kwargs
+        stacked=True, color=colors, figsize=figsize, **kwargs_for_pandas
     )
 
     # Draw center line
@@ -180,7 +183,10 @@ def plot_counts(
 
     # Reposition the legend if present
     if axes.get_legend():
-        axes.legend(bbox_to_anchor=(1.05, 1))
+        if len(kwargs_for_legend) > 0:
+            axes.legend(**kwargs_for_legend)
+        else:
+            axes.legend(bbox_to_anchor=(1.05, 1))
 
     # Adjust padding
     counts_sum = counts.sum(axis="columns").max()
@@ -325,7 +331,8 @@ def plot_likert(
     xtick_interval: typing.Optional[int] = None,
     bar_labels: bool = False,
     bar_labels_color: str = "white",
-    **kwargs,
+    kwargs_for_pandas = {},
+    kwargs_for_legend = {},
 ) -> matplotlib.axes.Axes:
     """
     Plot the given Likert-type dataset.
@@ -358,8 +365,10 @@ def plot_likert(
         Show a label with the value of each bar segment on top of it
     bar_labels_color: str, default = "white"
         If showing bar labels, use this color for the text
-    **kwargs
+    kwargs_for_pandas
         Options to pass to pandas plotting method.
+    kwargs_for_legend
+        Options to pass to legend plotting method.
 
     Returns
     -------
@@ -386,7 +395,8 @@ def plot_likert(
         compute_percentages=plot_percentage,
         bar_labels=bar_labels,
         bar_labels_color=bar_labels_color,
-        **kwargs,
+        kwargs_for_pandas=kwargs_for_pandas,
+        kwargs_for_legend=kwargs_for_legend,
     )
 
 
