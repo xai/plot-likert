@@ -104,6 +104,15 @@ scores7: Scale = [
     "7 - Strongly Agree",
 ]
 
+positive5: Scale = [
+    "Very negative",
+    "Negative",
+    "Neither",
+    "Positive",
+    "Very positive",
+]
+positive: Scale = positive5
+
 raw5_0: Scale = ["0", "1", "2", "3", "4", "5"]
 raw5: Scale = ["1", "2", "3", "4", "5"]
 
